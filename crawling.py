@@ -16,15 +16,17 @@ for item in pokemonNews:
         link = 'https://pokemonkorea.co.kr/'+link
     print(link)
 
+print("---------------------")
 
-nintendoHtml = urlopen("https://www.nintendo.co.kr/news/list.php")
+nintendoHtml = urlopen("https://www.nintendo.co.kr/main.php")
 nintendoBs = BeautifulSoup(nintendoHtml, "lxml")
 
 nintendoNews = nintendoBs.select(
-    'body > section.contents.news_page > div.news_list.article > div > div')
+    'body > section.contents.main > div.news_list.article > div > div')
 
 for item in nintendoNews:
     link = item.select_one(
-        "body > section.contents.news_page > div.news_list.article > div > div > a")["href"]
-    #어렵네요 닌텐도 웹페이지는...
-    
+        "body > section.contents.main > div.news_list.article > div > div > a")["href"]
+    if (link[0:5] == '/news'):
+        link = 'https://www.nintendo.co.kr/'+link
+    print(link)
